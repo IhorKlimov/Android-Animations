@@ -23,11 +23,19 @@ import android.widget.RelativeLayout;
 
 import com.myhexaville.iconanimations.databinding.ActivityMainBinding;
 
+import static android.view.MotionEvent.ACTION_DOWN;
+
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "MainActivity";
     private static final int FIRST_COLOR = Color.parseColor("#39dec5");
     private static final int SECOND_COLOR = Color.parseColor("#4648df");
     private int currentSelected = 0;
+
+
+    private int tab = -1;
+    private float x;
+    private float y;
+
 
     private ActivityMainBinding mBinding;
 
@@ -67,11 +75,13 @@ public class MainActivity extends AppCompatActivity {
         mBinding.tabs.getTabAt(0).getCustomView().setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() != MotionEvent.ACTION_MOVE
-                        && motionEvent.getAction() != MotionEvent.ACTION_UP
+                if (motionEvent.getAction() == ACTION_DOWN
                         && mBinding.pager.getCurrentItem() != 0) {
-                    ((CustomTab) view).setIsRevealing(true);
-                    reveal(motionEvent, 0);
+                    tab = 0;
+                    x = motionEvent.getRawX();
+                    y = motionEvent.getRawY();
+//                    ((CustomTab) view).setIsRevealing(true);
+//                    reveal(motionEvent, 0);
                 }
                 return false;
             }
@@ -81,11 +91,13 @@ public class MainActivity extends AppCompatActivity {
         mBinding.tabs.getTabAt(1).getCustomView().setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() != MotionEvent.ACTION_MOVE
-                        && motionEvent.getAction() != MotionEvent.ACTION_UP
+                if (motionEvent.getAction() == ACTION_DOWN
                         && mBinding.pager.getCurrentItem() != 1) {
-                    ((CustomTab) view).setIsRevealing(true);
-                    reveal(motionEvent, 1);
+                    tab = 1;
+                    x = motionEvent.getRawX();
+                    y = motionEvent.getRawY();
+//                    ((CustomTab) view).setIsRevealing(true);
+//                    reveal(motionEvent, 1);
                 }
                 return false;
             }
@@ -99,13 +111,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0
+                if (position == tab) {
+                    ((CustomTab) mBinding.tabs.getTabAt(position).getCustomView()).setIsRevealing(true);
+                    reveal(position);
+                } else if (position == 0
                         && !((CustomTab) mBinding.tabs.getTabAt(0).getCustomView()).isIsRevealing()) {
                     mBinding.background.setBackgroundColor(FIRST_COLOR);
                 } else if (position == 1
                         && !((CustomTab) mBinding.tabs.getTabAt(1).getCustomView()).isIsRevealing()) {
                     mBinding.background.setBackgroundColor(SECOND_COLOR);
                 }
+
+
             }
 
             @Override
@@ -126,14 +143,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void reveal(MotionEvent me, final int tabPosition) {
+    public void reveal(final int tabPosition) {
         mBinding.reveal.setVisibility(View.VISIBLE);
         int cx = mBinding.reveal.getWidth();
         int cy = mBinding.reveal.getHeight();
 
         float finalRadius = Math.max(cx, cy) * 1.2f;
         Animator reveal = ViewAnimationUtils
-                .createCircularReveal(mBinding.reveal, (int) me.getRawX(), (int) me.getRawY(), 0f, finalRadius);
+                .createCircularReveal(mBinding.reveal, (int) x, (int) y, 0f, finalRadius);
 
         reveal.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -146,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                     ((CustomTab) mBinding.tabs.getTabAt(1).getCustomView()).setIsRevealing(false);
                 }
                 mBinding.reveal.setVisibility(View.INVISIBLE);
-
+                tab = -1;
             }
         });
 
@@ -162,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
 //        mBinding.square.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                Log.d(LOG_TAG, "onAnimationEnd: "+ motionEvent.getAction());
 //                if (motionEvent.getAction() != MotionEvent.ACTION_MOVE
 //                        && motionEvent.getAction() != MotionEvent.ACTION_UP) {
 //                    reveal(motionEvent);
@@ -170,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-//
+////
 //    private void reveal(MotionEvent me) {
 //        mBinding.reveal2.setVisibility(View.VISIBLE);
 //        int cx = mBinding.reveal2.getWidth();
