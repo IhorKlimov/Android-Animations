@@ -45,21 +45,6 @@
             android:layout_height="match_parent"
             android:layout_below="@id/tabs" />
 
-        <!--<View-->
-            <!--android:id="@+id/square"-->
-            <!--android:layout_width="200dp"-->
-            <!--android:layout_height="200dp"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:background="#39dec5" />-->
-
-        <!--<View-->
-            <!--android:id="@+id/reveal2"-->
-            <!--android:layout_width="200dp"-->
-            <!--android:layout_height="200dp"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:background="#4648df"-->
-            <!--android:visibility="invisible" />-->
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/icon"
             android:layout_width="wrap_content"

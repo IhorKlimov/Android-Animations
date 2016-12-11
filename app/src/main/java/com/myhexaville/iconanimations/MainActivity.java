@@ -32,7 +32,12 @@ public class MainActivity extends AppCompatActivity {
     private int currentSelected = 0;
 
 
-    private int tab = -1;
+    // this ugly part comes from Custom Tab receiving only ACTION_DOWN, when to be sure
+    // to animate we need ACTION_UP (tab selected)
+    // that's why I start animation when page is selected and check if it was caused
+    // by swiping - no reveal animation to show
+    // by clicking - show reveal animation
+    private int mTabClicked = -1;
     private float x;
     private float y;
 
@@ -77,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == ACTION_DOWN
                         && mBinding.pager.getCurrentItem() != 0) {
-                    tab = 0;
+                    mTabClicked = 0;
                     x = motionEvent.getRawX();
                     y = motionEvent.getRawY();
 //                    ((CustomTab) view).setIsRevealing(true);
@@ -93,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == ACTION_DOWN
                         && mBinding.pager.getCurrentItem() != 1) {
-                    tab = 1;
+                    mTabClicked = 1;
                     x = motionEvent.getRawX();
                     y = motionEvent.getRawY();
 //                    ((CustomTab) view).setIsRevealing(true);
@@ -106,12 +111,14 @@ public class MainActivity extends AppCompatActivity {
         mBinding.pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                if (mTabClicked != -1) {
+                    mTabClicked = -1;
+                }
             }
 
             @Override
             public void onPageSelected(int position) {
-                if (position == tab) {
+                if (position == mTabClicked) {
                     ((CustomTab) mBinding.tabs.getTabAt(position).getCustomView()).setIsRevealing(true);
                     reveal(position);
                 } else if (position == 0
@@ -121,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
                         && !((CustomTab) mBinding.tabs.getTabAt(1).getCustomView()).isIsRevealing()) {
                     mBinding.background.setBackgroundColor(SECOND_COLOR);
                 }
-
-
             }
 
             @Override
@@ -163,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                     ((CustomTab) mBinding.tabs.getTabAt(1).getCustomView()).setIsRevealing(false);
                 }
                 mBinding.reveal.setVisibility(View.INVISIBLE);
-                tab = -1;
+                mTabClicked = -1;
             }
         });
 
@@ -174,52 +179,6 @@ public class MainActivity extends AppCompatActivity {
         }
         reveal.start();
     }
-
-//    private void setupSquare() {
-//        mBinding.square.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                Log.d(LOG_TAG, "onAnimationEnd: "+ motionEvent.getAction());
-//                if (motionEvent.getAction() != MotionEvent.ACTION_MOVE
-//                        && motionEvent.getAction() != MotionEvent.ACTION_UP) {
-//                    reveal(motionEvent);
-//                }
-//                return true;
-//            }
-//        });
-//    }
-////
-//    private void reveal(MotionEvent me) {
-//        mBinding.reveal2.setVisibility(View.VISIBLE);
-//        int cx = mBinding.reveal2.getWidth();
-//        int cy = mBinding.reveal2.getHeight();
-//
-//        float finalRadius = (float) Math.max(cx, cy);
-//        Animator reveal = ViewAnimationUtils
-//                .createCircularReveal(mBinding.reveal2, (int) me.getX(), (int) me.getY(), 0f, finalRadius);
-//
-//        reveal.addListener(new AnimatorListenerAdapter() {
-//            @Override
-//            public void onAnimationEnd(Animator animator) {
-//                if (currentSelected == 0) {
-//                    mBinding.square.setBackgroundColor(FIRST_COLOR);
-//                    currentSelected = 1;
-//                } else {
-//                    mBinding.square.setBackgroundColor(SECOND_COLOR);
-//                    currentSelected = 0;
-//                }
-//                mBinding.reveal2.setVisibility(View.INVISIBLE);
-//
-//            }
-//        });
-//
-//        if (currentSelected == 0) {
-//            mBinding.reveal2.setBackgroundColor(FIRST_COLOR);
-//        } else {
-//            mBinding.reveal2.setBackgroundColor(SECOND_COLOR);
-//        }
-//        reveal.start();
-//    }
 
     private void setupToolbarDimens() {
         int h = getStatusBarHeight() + getActionBarSIze();
