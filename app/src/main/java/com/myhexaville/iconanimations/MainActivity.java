@@ -3,12 +3,14 @@ package com.myhexaville.iconanimations;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mBinding.toolbar);
 
         setupToolbarDimens();
+
 
 //        setupSquare();
 
@@ -135,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @SuppressLint("NewApi")
@@ -143,8 +145,20 @@ public class MainActivity extends AppCompatActivity {
         Drawable d = mBinding.icon.getDrawable();
         if (Build.VERSION.SDK_INT >= 21 && d instanceof AnimatedVectorDrawable) {
             ((AnimatedVectorDrawable) d).start();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                }
+            }, 600);
         } else if (d instanceof AnimatedVectorDrawableCompat) {
             ((AnimatedVectorDrawableCompat) d).start();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                }
+            }, 600);
         }
     }
 
@@ -218,4 +232,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return result;
     }
+
+    public void lo(View view) {
+
+    }
 }
+
