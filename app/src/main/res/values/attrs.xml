@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleView">
+        <attr name="startValue" format="integer" />
+        <attr name="currentValue" format="integer" />
+        <attr name="endValue" format="integer" />
+        <attr name="animationDuration" format="integer"/>
+        <attr name="backgroundCircleColor" format="color"/>
+        <attr name="foregroundCircleColor" format="color"/>
+        <attr name="strokeWidth" format="dimension"/>
+    </declare-styleable>
+</resources>

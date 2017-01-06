@@ -6,7 +6,7 @@
         android:id="@+id/activity_sign_in"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.myhexaville.iconanimations.SignInActivity">
+        tools:context="com.myhexaville.iconanimations.com.myhexaville.events.SignInActivity">
 
         <ImageView
             android:id="@+id/background"

@@ -1,15 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.myhexaville.iconanimations.BlankFragment">
+<layout>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.myhexaville.iconanimations.BlankFragment">
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_filter_hdr_black_24dp" />
+        <com.myhexaville.iconanimations.CircleView
+            android:layout_width="200dp"
+            android:id="@+id/circle"
+            app:animationDuration="1000"
+            app:startValue="70"
+            app:endValue="80"
+            app:currentValue="77"
+            app:foregroundCircleColor="@color/colorAccent"
+            app:backgroundCircleColor="#16000000"
+            app:strokeWidth="12dp"
+            android:layout_gravity="center"
+            android:layout_height="200dp" />
 
-
-</FrameLayout>
+    </FrameLayout>
+</layout>

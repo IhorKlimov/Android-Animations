@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.myhexaville.iconanimations.ScrollingActivity">
+    tools:context="com.myhexaville.iconanimations.com.myhexaville.events.EventsActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.myhexaville.iconanimations.ScrollingActivity"
-    tools:showIn="@layout/activity_scrolling">
+    tools:context="com.myhexaville.iconanimations.com.myhexaville.events.EventsActivity"
+    tools:showIn="@layout/activity_events">
 
     <TextView
         android:layout_width="wrap_content"

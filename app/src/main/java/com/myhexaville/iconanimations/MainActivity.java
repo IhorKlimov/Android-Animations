@@ -54,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         setupToolbarDimens();
 
-
-//        setupSquare();
-
         setupPager();
     }
 
@@ -88,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
                     mTabClicked = 0;
                     x = motionEvent.getRawX();
                     y = motionEvent.getRawY();
-//                    ((CustomTab) view).setIsRevealing(true);
-//                    reveal(motionEvent, 0);
                 }
                 return false;
             }
@@ -104,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
                     mTabClicked = 1;
                     x = motionEvent.getRawX();
                     y = motionEvent.getRawY();
-//                    ((CustomTab) view).setIsRevealing(true);
-//                    reveal(motionEvent, 1);
                 }
                 return false;
             }
@@ -145,20 +138,8 @@ public class MainActivity extends AppCompatActivity {
         Drawable d = mBinding.icon.getDrawable();
         if (Build.VERSION.SDK_INT >= 21 && d instanceof AnimatedVectorDrawable) {
             ((AnimatedVectorDrawable) d).start();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                }
-            }, 600);
         } else if (d instanceof AnimatedVectorDrawableCompat) {
             ((AnimatedVectorDrawableCompat) d).start();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                }
-            }, 600);
         }
     }
 
@@ -233,8 +214,6 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-    public void lo(View view) {
 
-    }
 }
 
