@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+    <slide android:duration="400" android:slideEdge="top"  android:interpolator="@android:interpolator/accelerate_decelerate">
+        <targets>
+            <target android:excludeId="@id/top_1"/>
+            <target android:excludeId="@id/title"/>
+            <target android:excludeId="@id/scroll"/>
+            <target android:excludeId="@id/profile_pic"/>
+            <target android:excludeId="@id/profile_points"/>
+            <target android:excludeId="@android:id/statusBarBackground"/>
+            <target android:excludeId="@android:id/navigationBarBackground"/>
+        </targets>
+    </slide>
+</transitionSet>

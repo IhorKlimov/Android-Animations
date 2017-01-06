@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.myhexaville.iconanimations;
+package com.myhexaville.iconanimations.progress_circle_layout;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -26,11 +26,17 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 
-public class CircleView extends View {
-    private static final String LOG_TAG = "CircleView";
-    public static final int DEFAULT_ANIMATION_TIME = 1000;
+import com.myhexaville.iconanimations.R;
+
+final class ProgressCircleView extends View {
+    private static final String LOG_TAG = "ProgressCircleView";
+    private static final int DEFAULT_ANIMATION_TIME = 1000;
+    private Interpolator mInterpolator;
+    private OnCircleAnimationListener mListener;
+
 
     private int mStartValue;
     private int mCurrentValue;
@@ -40,36 +46,39 @@ public class CircleView extends View {
     private int mAnimationDuration;
     private int mBackCircleColor;
     private int mForegroundCircleColor;
-    private float mAnimationSpeed;
 
+    private boolean mAnimateOnDisplay;
+
+    private float mAnimationSpeed;
     private Paint mBackCirclePaint;
     private Paint mForegroundCirclePaint;
     private float mCurrentAngle;
-    private int mEndAngle;
 
-    private long mLastFrame;
+    private int mEndAngle;
     private long mAnimationStartTime;
 
-    public CircleView(Context context) {
+    public ProgressCircleView(Context context) {
         super(context);
-        setupPaint();
+        mInterpolator = new AccelerateDecelerateInterpolator();
     }
 
-    public CircleView(Context context, AttributeSet attrs) {
+    public ProgressCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        readAttributesAndSetupFields(context, attrs);
-        setupPaint();
     }
 
-    public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ProgressCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        readAttributesAndSetupFields(context, attrs);
-        setupPaint();
     }
 
-    public CircleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ProgressCircleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    public void init(Context context, AttributeSet attrs) {
+        mInterpolator = new AccelerateDecelerateInterpolator();
+
         readAttributesAndSetupFields(context, attrs);
+
         setupPaint();
     }
 
@@ -77,7 +86,6 @@ public class CircleView extends View {
     @Override
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
-
         if (mAnimationStartTime == 0) {
             mAnimationStartTime = System.currentTimeMillis();
         }
@@ -95,21 +103,28 @@ public class CircleView extends View {
                 getWidth() - mStrokeWidth / 2,
                 getHeight() - mStrokeWidth / 2,
                 -90,
-                getNextFrameAngle(),
+                mAnimateOnDisplay ? getCurrentFrameAngle() : mEndAngle,
                 false,
                 mForegroundCirclePaint
         );
 
-        if (mCurrentAngle < mEndAngle) {
+        if (mAnimateOnDisplay && mCurrentAngle < mEndAngle) {
             invalidate();
         }
+    }
+
+    public void showAnimation() {
+        mAnimateOnDisplay = true;
+        mCurrentAngle = 0f;
+        mAnimationStartTime = 0;
+        invalidate();
     }
 
 
     private void readAttributesAndSetupFields(Context context, AttributeSet attrs) {
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
-                R.styleable.CircleView,
+                R.styleable.ProgressCircleLayout,
                 0, 0);
 
         try {
@@ -126,21 +141,23 @@ public class CircleView extends View {
     }
 
     private void applyAttributes(Context context, TypedArray a) {
-        mStartValue = a.getInt(R.styleable.CircleView_startValue, 0);
-        mCurrentValue = a.getInt(R.styleable.CircleView_currentValue, 0);
-        mEndValue = a.getInt(R.styleable.CircleView_endValue, 0);
+        mStartValue = a.getInt(R.styleable.ProgressCircleLayout_startValue, 0);
+        mCurrentValue = a.getInt(R.styleable.ProgressCircleLayout_currentValue, 0);
+        mEndValue = a.getInt(R.styleable.ProgressCircleLayout_endValue, 0);
 
-        mAnimationDuration = a.getInt(R.styleable.CircleView_animationDuration, DEFAULT_ANIMATION_TIME);
+        mAnimateOnDisplay = a.getBoolean(R.styleable.ProgressCircleLayout_animateOnDisplay, true);
+
+        mAnimationDuration = a.getInt(R.styleable.ProgressCircleLayout_animationDuration, DEFAULT_ANIMATION_TIME);
 
         readBackCircleColorFromAttributes(a);
 
         readForegroundColorFromAttributes(context, a);
 
-        mStrokeWidth = a.getDimension(R.styleable.CircleView_strokeWidth, getDefaultStrokeWidth(context));
+        mStrokeWidth = a.getDimension(R.styleable.ProgressCircleLayout_strokeWidth, getDefaultStrokeWidth(context));
     }
 
     private void readForegroundColorFromAttributes(Context context, TypedArray a) {
-        ColorStateList fc = a.getColorStateList(R.styleable.CircleView_foregroundCircleColor);
+        ColorStateList fc = a.getColorStateList(R.styleable.ProgressCircleLayout_foregroundCircleColor);
         if (fc != null) {
             mForegroundCircleColor = fc.getDefaultColor();
         } else {
@@ -149,7 +166,7 @@ public class CircleView extends View {
     }
 
     private void readBackCircleColorFromAttributes(TypedArray a) {
-        ColorStateList bc = a.getColorStateList(R.styleable.CircleView_backgroundCircleColor);
+        ColorStateList bc = a.getColorStateList(R.styleable.ProgressCircleLayout_backgroundCircleColor);
         if (bc != null) {
             mBackCircleColor = bc.getDefaultColor();
         } else {
@@ -203,7 +220,7 @@ public class CircleView extends View {
         mBackCirclePaint.setStrokeWidth(mStrokeWidth);
     }
 
-    public float getNextFrameAngle() {
+    private float getCurrentFrameAngle() {
 //        mCurrentAngle += mAnimationSpeed;
 //
 //        if (mCurrentAngle > mEndAngle) {
@@ -215,17 +232,26 @@ public class CircleView extends View {
 
         long now = System.currentTimeMillis();
         float pathGone = ((float) (now - mAnimationStartTime) / (mAnimationDuration));
+        float interpolatedPathGone = mInterpolator.getInterpolation(pathGone);
+
         if (pathGone < 1.0f) {
-            mCurrentAngle = mEndAngle * pathGone;
+            mCurrentAngle = mEndAngle * interpolatedPathGone;
+            mListener.onCircleAnimation(getCurrentAnimationFrameValue(interpolatedPathGone));
         } else {
             mCurrentAngle = mEndAngle;
+            mListener.onCircleAnimation(getCurrentAnimationFrameValue(1.0f));
+
         }
-        mLastFrame = now;
+
+
         return mCurrentAngle;
     }
 
+    void setOnCircleAnimationListener(OnCircleAnimationListener l) {
+        mListener = l;
+    }
 
-    public int getAccentColor(Context context) {
+    private int getAccentColor(Context context) {
         TypedValue typedValue = new TypedValue();
 
         TypedArray a = context.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorAccent});
@@ -236,8 +262,18 @@ public class CircleView extends View {
         return color;
     }
 
-    public int getDefaultStrokeWidth(Context context) {
+    private int getDefaultStrokeWidth(Context context) {
         return (int) (context.getResources().getDisplayMetrics().density * 10);
+    }
+
+    public void setInterpolator(Interpolator i) {
+        mInterpolator = i;
+    }
+
+    public String getCurrentAnimationFrameValue(float interpolatedPathGone) {
+        int value = Math.round(((mCurrentValue - mStartValue) * interpolatedPathGone)) + mStartValue;
+
+        return String.valueOf(value);
     }
 }
 
