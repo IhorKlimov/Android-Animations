@@ -2,6 +2,8 @@ package com.myhexaville.iconanimations;
 
 
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -43,6 +45,8 @@ public class BlankFragment extends Fragment {
                 mBinding.circleAccelerateDecelerate.showAnimation();
             }
         });
+
+
 
         return mBinding.getRoot();
     }

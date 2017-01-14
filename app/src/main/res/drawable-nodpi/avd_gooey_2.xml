@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/fab">
+
+    <target
+        android:animation="@animator/gooey_path_anim_3"
+        android:name="path" />
+
+    <!--<target-->
+        <!--android:animation="@animator/gooey_path_anim_2"-->
+        <!--android:name="top" />-->
+
+    <!--<target-->
+        <!--android:animation="@animator/gooey_path_anim2_2"-->
+        <!--android:name="path2" />-->
+
+    <!--<target-->
+        <!--android:animation="@animator/rotate_2"-->
+        <!--android:name="icon" />-->
+
+    <!--<target-->
+        <!--android:animation="@animator/fade_in"-->
+        <!--android:name="icon_2_path" />-->
+</animated-vector>

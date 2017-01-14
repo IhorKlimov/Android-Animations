@@ -7,6 +7,7 @@
     <com.myhexaville.iconanimations.progress_circle_layout.ProgressCircleView
         android:id="@+id/circle"
         android:layout_width="match_parent"
+        android:elevation="4dp"
         android:layout_height="match_parent" />
 
     <LinearLayout

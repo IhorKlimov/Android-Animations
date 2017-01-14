@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         setupToolbarDimens();
 
         setupPager();
+
+        startActivity(new Intent(this, Main2Activity.class));
     }
 
     private void setupPager() {
@@ -215,5 +217,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void gooey(View view) {
+        Drawable d = mBinding.gooey.getBackground();
+        if (d instanceof AnimatedVectorDrawable) {
+            ((AnimatedVectorDrawable) d).start();
+        }
+    }
 }
 

@@ -1,0 +1,55 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="48dp"
+    android:viewportHeight="48.0"
+    android:viewportWidth="24.0">
+
+    <group
+        android:name="top"
+        android:pivotX="12"
+        android:pivotY="24"
+        android:scaleX=".7"
+        android:scaleY=".7"
+        android:translateY="20">
+
+        <path
+            android:name="path2"
+            android:fillColor="#43b4c6"
+            android:pathData="M12,12m-10,0a10,10 0,1 1,20 0a10,14 0,1 1,-20 0" />
+
+        <group
+            android:name="icon_2"
+            android:pivotX="12"
+            android:pivotY="12"
+            android:scaleX=".5"
+            android:scaleY=".5">
+            <path
+                android:fillColor="#ffffff"
+                android:name="icon_2_path"
+                android:pathData="M21,3L3,3c-1.1,0 -2,0.9 -2,2v3h2L3,5h18v14h-7v2h7c1.1,0 2,-0.9 2,-2L23,5c0,-1.1 -0.9,-2 -2,-2zM1,18v3h3c0,-1.66 -1.34,-3 -3,-3zM1,14v2c2.76,0 5,2.24 5,5h2c0,-3.87 -3.13,-7 -7,-7zM1,10v2c4.97,0 9,4.03 9,9h2c0,-6.08 -4.93,-11 -11,-11z"/>
+        </group>
+    </group>
+
+    <group
+        android:pivotX="12"
+        android:pivotY="24"
+        android:rotation="180">
+        <path
+            android:name="path"
+            android:fillColor="#43b4c6"
+            android:pathData="M12,12m-10,0
+            a10,10 0,1 1,20 0
+            a10,10 0,1 1,-20 0" />
+
+        <group
+            android:name="icon"
+            android:pivotX="12"
+            android:pivotY="12"
+            android:scaleX=".5"
+            android:scaleY=".5">
+            <path
+                android:fillColor="#ffffff"
+                android:pathData="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+        </group>
+    </group>
+</vector>

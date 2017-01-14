@@ -221,15 +221,6 @@ final class ProgressCircleView extends View {
     }
 
     private float getCurrentFrameAngle() {
-//        mCurrentAngle += mAnimationSpeed;
-//
-//        if (mCurrentAngle > mEndAngle) {
-//            return mEndAngle;
-//        } else {
-//            return mCurrentAngle;
-//        }
-//
-
         long now = System.currentTimeMillis();
         float pathGone = ((float) (now - mAnimationStartTime) / (mAnimationDuration));
         float interpolatedPathGone = mInterpolator.getInterpolation(pathGone);
@@ -242,7 +233,6 @@ final class ProgressCircleView extends View {
             mListener.onCircleAnimation(getCurrentAnimationFrameValue(1.0f));
 
         }
-
 
         return mCurrentAngle;
     }

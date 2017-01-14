@@ -7,7 +7,7 @@
 
     </style>
 
-    <style name="AppTheme.Events" parent="AppTheme" >
+    <style name="AppTheme.Events" parent="AppTheme">
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowEnterTransition">@transition/enter_event</item>
         <item name="android:windowExitTransition">@null</item>
