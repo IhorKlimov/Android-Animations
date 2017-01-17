@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/gooey">
+    android:drawable="@drawable/gooey_reverse">
 
     <target
         android:animation="@animator/gooey_path_anim"
         android:name="path" />
 
     <target
-        android:animation="@animator/top_transition"
+        android:animation="@animator/top_transition_reverse"
         android:name="top" />
 
     <target
@@ -15,10 +15,10 @@
         android:name="path2" />
 
     <target
-        android:animation="@animator/rotate_2"
+        android:animation="@animator/rotate_2_reverse"
         android:name="icon" />
 
     <target
-        android:animation="@animator/fade_in"
+        android:animation="@animator/fade_out"
         android:name="icon_2_path" />
 </animated-vector>

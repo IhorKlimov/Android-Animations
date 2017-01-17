@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
@@ -56,14 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
         setupPager();
 
-        startActivity(new Intent(this, Main2Activity.class));
     }
 
     private void setupPager() {
         mBinding.pager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return new BlankFragment();
+                if (position == 0) {
+                    return new BlankFragment();
+                } else {
+                    return new FABFragment();
+                }
             }
 
             @Override
@@ -216,12 +220,5 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-
-    public void gooey(View view) {
-        Drawable d = mBinding.gooey.getBackground();
-        if (d instanceof AnimatedVectorDrawable) {
-            ((AnimatedVectorDrawable) d).start();
-        }
-    }
 }
 
