@@ -58,15 +58,5 @@
             app:fabSize="normal"
             app:srcCompat="@drawable/avd" />
 
-
-        <ImageView
-            android:id="@+id/gooey"
-            android:background="@drawable/avd_gooey"
-            android:onClick="gooey"
-            android:layout_height="128dp"
-            android:layout_toStartOf="@id/icon"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="11dp"
-            android:layout_width="64dp" />
     </RelativeLayout>
 </layout>
