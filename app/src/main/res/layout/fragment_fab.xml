@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,3 +12,23 @@
         android:layout_gravity="center"
         android:background="@drawable/avd_gooey" />
 </FrameLayout>
+=======
+<layout>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.myhexaville.iconanimations.FABFragment">
+
+        <com.myhexaville.iconanimations.GooeyFab
+            android:layout_width="56dp"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:elevation="4dp"
+            android:layout_gravity="center"
+            android:foreground="?selectableItemBackground"
+            android:layout_height="112dp" />
+
+    </FrameLayout>
+
+</layout>
+>>>>>>> next_post

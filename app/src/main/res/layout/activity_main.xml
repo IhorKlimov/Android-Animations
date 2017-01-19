@@ -57,6 +57,5 @@
             android:onClick="animatePencil"
             app:fabSize="normal"
             app:srcCompat="@drawable/avd" />
-
     </RelativeLayout>
 </layout>

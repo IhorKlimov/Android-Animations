@@ -1,149 +1,147 @@
 <layout>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         tools:context="com.myhexaville.iconanimations.BlankFragment">
 
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:orientation="vertical"
-           android:layout_marginStart="50dp"
-           android:id="@+id/linear"
-           android:layout_marginTop="100dp"
-           android:gravity="center_horizontal"
-           android:layout_height="wrap_content">
-
-           <TextView
-               android:layout_width="wrap_content"
-               android:text="Linear"
-               android:layout_height="wrap_content" />
-
-           <com.myhexaville.iconanimations.progress_circle_layout.ProgressCircleLayout
-               android:layout_width="100dp"
-               android:id="@+id/circle_linear"
-               app:animationDuration="1000"
-               app:startValue="70"
-               app:animateOnDisplay="false"
-               app:endValue="80"
-               app:metrics="kg"
-               app:metricsGravity="right"
-               app:currentValue="76"
-               app:foregroundCircleColor="#558b2f"
-               app:backgroundCircleColor="#16000000"
-               app:strokeWidth="12dp"
-               android:layout_gravity="center"
-               android:layout_height="100dp" />
-       </LinearLayout>
-
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginEnd="50dp"
-            android:id="@+id/accelerate"
-            android:layout_alignParentEnd="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="100dp"
             android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Accelerate"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Linear" />
 
             <com.myhexaville.iconanimations.progress_circle_layout.ProgressCircleLayout
+                android:id="@+id/circle_linear"
                 android:layout_width="100dp"
-                android:id="@+id/circle_accelerate"
-                app:animationDuration="1000"
-                app:startValue="70"
-                app:endValue="80"
-                app:animateOnDisplay="false"
-                app:metrics="kg"
-                app:currentValue="76"
-                app:metricsGravity="right"
-                app:foregroundCircleColor="#1de9b6"
-                app:backgroundCircleColor="#16000000"
-                app:strokeWidth="12dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:layout_height="100dp" />
+                app:animateOnDisplay="false"
+                app:animationDuration="1000"
+                app:backgroundCircleColor="#16000000"
+                app:currentValue="76"
+                app:endValue="80"
+                app:foregroundCircleColor="#558b2f"
+                app:metrics="kg"
+                app:metricsGravity="right"
+                app:startValue="70"
+                app:strokeWidth="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/accelerate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="100dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accelerate" />
+
+            <com.myhexaville.iconanimations.progress_circle_layout.ProgressCircleLayout
+                android:id="@+id/circle_accelerate"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                app:animateOnDisplay="false"
+                app:animationDuration="1000"
+                app:backgroundCircleColor="#16000000"
+                app:currentValue="76"
+                app:endValue="80"
+                app:foregroundCircleColor="#1de9b6"
+                app:metrics="kg"
+                app:metricsGravity="right"
+                app:startValue="70"
+                app:strokeWidth="12dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
             android:layout_below="@id/accelerate"
             android:layout_marginStart="50dp"
             android:layout_marginTop="32dp"
             android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Decelerate"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Decelerate" />
 
             <com.myhexaville.iconanimations.progress_circle_layout.ProgressCircleLayout
-                android:layout_width="100dp"
                 android:id="@+id/circle_decelerate"
-                app:animationDuration="1000"
-                app:startValue="1"
-                app:endValue="5200"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
                 app:animateOnDisplay="false"
+                app:animationDuration="1000"
+                app:backgroundCircleColor="#16000000"
                 app:currentValue="4235"
+                app:endValue="5200"
+                app:foregroundCircleColor="#3d5afe"
                 app:metrics="steps"
                 app:metricsGravity="bottom"
-                app:foregroundCircleColor="#3d5afe"
-                app:backgroundCircleColor="#16000000"
-                app:strokeWidth="12dp"
-                android:layout_gravity="center"
-                android:layout_height="100dp" />
+                app:startValue="1"
+                app:strokeWidth="12dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginEnd="50dp"
-            android:layout_below="@id/accelerate"
             android:id="@+id/accelerate_decelerate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_below="@id/accelerate"
+            android:layout_marginEnd="50dp"
             android:layout_marginTop="32dp"
             android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="AccelerateDecelerate"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="AccelerateDecelerate" />
 
             <com.myhexaville.iconanimations.progress_circle_layout.ProgressCircleLayout
-                android:layout_width="100dp"
                 android:id="@+id/circle_accelerate_decelerate"
-                app:animationDuration="1000"
-                app:startValue="70"
-                app:endValue="1000"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
                 app:animateOnDisplay="false"
+                app:animationDuration="1000"
+                app:backgroundCircleColor="#16000000"
                 app:currentValue="560"
+                app:endValue="1000"
+                app:foregroundCircleColor="@color/colorAccent"
                 app:metrics="kcal"
                 app:metricsGravity="bottom"
-                app:foregroundCircleColor="@color/colorAccent"
-                app:backgroundCircleColor="#16000000"
-                app:strokeWidth="12dp"
-                android:layout_gravity="center"
-                android:layout_height="100dp" />
+                app:startValue="70"
+                app:strokeWidth="12dp" />
         </LinearLayout>
 
         <Button
-            android:layout_width="wrap_content"
-            android:text="animate"
             android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="32dp"
             android:layout_centerHorizontal="true"
-            android:layout_height="wrap_content" />
-
-
-
+            android:layout_marginBottom="32dp"
+            android:text="animate" />
     </RelativeLayout>
 </layout>

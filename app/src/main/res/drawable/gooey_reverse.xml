@@ -10,14 +10,14 @@
         android:pivotY="12"
         android:scaleX=".7"
         android:scaleY=".7"
-        android:translateY="22">
+        android:translateY="0">
 
         <path
             android:name="path2"
             android:fillColor="#43b4c6"
             android:pathData="M12,12m-12,0
             a12,12 0,1 1,24 0
-            a12,14 0,1 1,-24 0" />
+            a12,12 0,1 1,-24 0" />
 
         <group
             android:name="icon_2"
@@ -47,6 +47,7 @@
             android:name="icon"
             android:pivotX="12"
             android:pivotY="12"
+            android:rotation="45"
             android:scaleX=".5"
             android:scaleY=".5">
             <path

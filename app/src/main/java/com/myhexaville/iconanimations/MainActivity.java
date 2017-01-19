@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 0) {
                     return new BlankFragment();
                 } else {
-                    return new FabFragment();
+                    return new FABFragment();
                 }
             }
 
