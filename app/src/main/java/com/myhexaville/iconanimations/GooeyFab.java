@@ -16,15 +16,9 @@
 
 package com.myhexaville.iconanimations;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Outline;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -36,20 +30,13 @@ import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.FrameLayout;
 
-import static android.graphics.Paint.Style.FILL;
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 public class GooeyFab extends FrameLayout {
     private static final String LOG_TAG = "GooeyFab";
 
-    private int mWidth;
     private int mHeight;
-
-    private int mArcCurrent;
-    private int mArcStart;
-    private int mArcEnd;
-
-    private Paint mPaint;
-    private android.graphics.Path mPath;
+    private boolean mIsAnimating;
     private boolean mIsExpanded;
 
 
@@ -74,56 +61,104 @@ public class GooeyFab extends FrameLayout {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        mWidth = w;
         mHeight = h;
 
-        mArcStart = mHeight - getFabSize();
-        mArcCurrent = mArcStart;
-        mArcEnd = (int) (mArcStart - getContext().getResources().getDisplayMetrics().density * 6);
-
-        mPath = new Path();
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= LOLLIPOP) {
             setOutlineProvider(new CustomOutline(w, h));
         }
     }
 
-//    @Override
-//    protected void onDraw(Canvas canvas) {
-//        super.onDraw(canvas);
-//        Log.d(LOG_TAG, "onDraw: ");
-//
-//        canvas.drawArc(
-//                0,
-//                mArcCurrent,
-//                mWidth,
-//                getHeight(),
-//                0,
-//                360,
-//                false,
-//                mPaint);
-//
-//        canvas.drawArc(
-//                0,
-//                mArcStart,
-//                mWidth,
-//                getHeight(),
-//                0,
-//                360,
-//                false,
-//                mPaint);
-//
-//    }
+    private void init() {
+        inflate(getContext(), R.layout.fab_layout, this);
+        View v = findViewById(R.id.ripple);
+        v.setClipToOutline(true);
+        v.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if (!mIsAnimating) {
+                    mIsAnimating = true;
+                    onLargeFabClicked();
+                    v.animate().scaleY(1.1f)
+                            .setDuration(187)
+                            .start();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            v.animate().scaleY(1f)
+                                    .setDuration(187)
+                                    .start();
+                        }
+                    }, 187);
+                }
+            }
+        });
+
+        setBackground(
+                AnimatedVectorDrawableCompat
+                        .create(getContext(), R.drawable.avd_gooey));
+
+        setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (!isClickedOnLargeFab(event)) {
+                        onSmallFabClicked();
+                    }
+                }
+                return true;
+            }
+        });
+    }
+
+    private void onLargeFabClicked() {
+        Drawable d = getBackground();
+        if (d instanceof AnimatedVectorDrawableCompat) {
+            Log.d(LOG_TAG, "gooey: 2");
+            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) d;
+            avd.start();
+        }
+
+        setNextAvd();
+    }
+
+    private void onSmallFabClicked() {
+        Log.d(LOG_TAG, "onSmallFabClicked: ");
+    }
+
+    private boolean isClickedOnLargeFab(MotionEvent e) {
+        return e.getY() > getFabSize();
+    }
+
+    private void setNextAvd() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mIsExpanded = !mIsExpanded;
+                mIsAnimating = false;
+
+                if (mIsExpanded) {
+                    setBackground(
+                            AnimatedVectorDrawableCompat
+                                    .create(getContext(), R.drawable.avd_gooey_reverse));
+                } else {
+                    setBackground(
+                            AnimatedVectorDrawableCompat
+                                    .create(getContext(), R.drawable.avd_gooey));
+                }
+            }
+        }, 500);
+    }
 
     public int getFabSize() {
         return getContext().getResources().getDimensionPixelSize(R.dimen.fab_size);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @TargetApi(LOLLIPOP)
     private class CustomOutline extends ViewOutlineProvider {
 
         int width;
+
         int height;
 
         CustomOutline(int width, int height) {
@@ -140,142 +175,4 @@ public class GooeyFab extends FrameLayout {
                     height);
         }
     }
-
-
-    private void init() {
-        inflate(getContext(), R.layout.fab_layout, this);
-        View v = findViewById(R.id.ripple);
-        v.setClipToOutline(true);
-        v.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                onLargeFabClicked();
-                v.animate().scaleY(1.1f)
-                        .setDuration(187)
-                        .start();
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        v.animate().scaleY(1f)
-                                .setDuration(187)
-                                .start();
-                    }
-                }, 187);
-            }
-        });
-
-        mPaint = new Paint();
-        mPaint.setColor(Color.parseColor("#43b4c6"));
-        mPaint.setStyle(FILL);
-
-        setBackground(
-                AnimatedVectorDrawableCompat
-                        .create(getContext(), R.drawable.avd_gooey));
-
-        setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    gooey(event);
-                }
-                return true;
-            }
-        });
-
-
-//        setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                gooey();
-//            }
-//        });
-    }
-
-    public void gooey(MotionEvent e) {
-        if (isClickedOnLargeFab(e)) {
-            onLargeFabClicked();
-        } else {
-            onSmallFabClicked();
-        }
-    }
-
-    private void onSmallFabClicked() {
-        Log.d(LOG_TAG, "onSmallFabClicked: ");
-    }
-
-    private void onLargeFabClicked() {
-        Drawable d = getBackground();
-        if (d instanceof AnimatedVectorDrawableCompat) {
-            Log.d(LOG_TAG, "gooey: 2");
-            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) d;
-            avd.start();
-        }
-
-        setNextAvd();
-    }
-
-    private boolean isClickedOnLargeFab(MotionEvent e) {
-        return e.getY() > getFabSize();
-    }
-
-    private void setNextAvd() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mIsExpanded = !mIsExpanded;
-
-                if (mIsExpanded) {
-                    setBackground(
-                            AnimatedVectorDrawableCompat
-                                    .create(getContext(), R.drawable.avd_gooey_reverse));
-                } else {
-                    setBackground(
-                            AnimatedVectorDrawableCompat
-                                    .create(getContext(), R.drawable.avd_gooey));
-                }
-            }
-        }, 500);
-    }
-
-    private void gooeyAnimation() {
-        ValueAnimator a = ValueAnimator.ofFloat(0f, 1f)
-                .setDuration(187);
-        a.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float v = (float) animation.getAnimatedValue();
-
-                float pathGone = (mArcStart - mArcEnd) * v;
-                mArcCurrent = (int) (mArcStart - pathGone);
-
-                invalidate();
-            }
-        });
-        a.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-
-                ValueAnimator a = ValueAnimator.ofFloat(1f, 0f)
-                        .setDuration(187);
-                a.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        float v = (float) animation.getAnimatedValue();
-
-                        float pathGone = (mArcEnd - mArcStart) * v;
-                        mArcCurrent = (int) (mArcStart - pathGone);
-
-                        invalidate();
-                    }
-                });
-
-                a.start();
-            }
-        });
-
-        a.start();
-    }
-
 }

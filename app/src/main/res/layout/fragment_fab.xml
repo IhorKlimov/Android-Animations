@@ -12,7 +12,5 @@
             android:layout_gravity="center"
             android:foreground="?selectableItemBackground"
             android:layout_height="112dp" />
-
     </FrameLayout>
-
 </layout>
