@@ -10,10 +10,15 @@
         <attr name="strokeWidth" format="dimension" />
         <attr name="animateOnDisplay" format="boolean" />
         <attr name="metricsGravity" format="enum">
-            <enum name="right" value="0"/>
-            <enum name="bottom" value="1"/>
+            <enum name="right" value="0" />
+            <enum name="bottom" value="1" />
         </attr>
-        <attr name="metrics" format="string"/>
+        <attr name="metrics" format="string" />
         <!--todo implement interpolator-->
+    </declare-styleable>
+
+    <declare-styleable name="GooeyFabCompat">
+        <attr name="numberOfSmallFab" format="integer" />
+        <attr name="fabIcons" format="reference"/>
     </declare-styleable>
 </resources>

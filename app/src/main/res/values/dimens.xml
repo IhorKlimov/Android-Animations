@@ -9,4 +9,9 @@
     <dimen name="fab_size_small_height">59dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="fab_elevation_rest">6dp</dimen>
+    <dimen name="fab_elevation_pressed">12dp</dimen>
+    <dimen name="small_fab_margin_bottom">10dp</dimen>
+    <dimen name="fab_gooey_part">8dp</dimen>
+    <dimen name="fab_gooey_part_small">4dp</dimen>
 </resources>

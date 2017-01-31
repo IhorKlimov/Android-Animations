@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="icons">
+        <item>@drawable/plus</item>
+        <item>@drawable/cast</item>
+        <item>@drawable/cake</item>
+    </array>
+</resources>
