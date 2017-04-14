@@ -2,8 +2,10 @@ package com.myhexaville.iconanimations;
 
 
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,6 +29,17 @@ public class FABFragment extends Fragment {
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_fab, container, false);
+        mBinding.fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Drawable d = mBinding.fab2.getDrawable();
+                if (d instanceof AnimatedVectorDrawable) {
+                    ((AnimatedVectorDrawable)d ).start();
+                } else if (d instanceof AnimatedVectorDrawableCompat) {
+                    ((AnimatedVectorDrawableCompat) d).start();
+                }
+            }
+        });
         return mBinding.getRoot();
     }
 
