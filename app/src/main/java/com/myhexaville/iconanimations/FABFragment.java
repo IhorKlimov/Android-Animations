@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.myhexaville.iconanimations.databinding.FragmentFabBinding;
 
@@ -37,6 +38,21 @@ public class FABFragment extends Fragment {
                     ((AnimatedVectorDrawable)d ).start();
                 } else if (d instanceof AnimatedVectorDrawableCompat) {
                     ((AnimatedVectorDrawableCompat) d).start();
+                }
+            }
+        });
+
+        mBinding.heartRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageView v = (ImageView) view;
+                Drawable d = v.getDrawable();
+                if (d instanceof AnimatedVectorDrawable) {
+                    AnimatedVectorDrawable avd = (AnimatedVectorDrawable) d;
+                    avd.start();
+                } else if (d instanceof AnimatedVectorDrawableCompat) {
+                    AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) d;
+                    avd.start();
                 }
             }
         });

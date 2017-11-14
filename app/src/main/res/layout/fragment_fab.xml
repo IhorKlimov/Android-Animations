@@ -13,23 +13,30 @@
             android:foreground="?selectableItemBackground" />
 
         <com.myhexaville.iconanimations.gooey_fab.GooeyFabCompat
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:id="@+id/fab"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:clipToPadding="false"
             android:layout_marginStart="70dp"
-            app:fabIcons="@array/icons"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:clipToPadding="false"
+            android:padding="@dimen/activity_horizontal_margin"
+            app:fabIcons="@array/icons"
             app:numberOfSmallFab="1" />
 
         <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
             android:id="@+id/fab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            app:srcCompat="@drawable/animated_vector_drawable"
-            android:layout_height="wrap_content" />
+            app:srcCompat="@drawable/animated_vector_drawable" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_gravity="bottom|center"
+            app:srcCompat="@drawable/heart_rate"
+            android:id="@+id/heart_rate"
+            android:layout_height="100dp" />
     </FrameLayout>
 </layout>
